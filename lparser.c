@@ -1867,6 +1867,7 @@ static void statement (LexState *ls) {
       funcstat(ls, line);
       break;
     }
+    case TK_LET:
     case TK_LOCAL: {  /* stat -> localstat */
       luaX_next(ls);  /* skip LOCAL */
       if (testnext(ls, TK_FUNCTION) || testnext(ls, TK_FUN))  /* local function? */
