@@ -691,12 +691,20 @@ void luaV_objlen (lua_State *L, StkId ra, const TValue *rb) {
       return;
     }
     case LUA_VSHRSTR: {
-      setivalue(s2v(ra), tsvalue(rb)->shrlen);
-      return;
+      tm = luaT_gettmbyobj(L, rb, TM_LEN);
+      if (notm(tm)) {
+        setivalue(s2v(ra), tsvalue(rb)->shrlen);
+        return;
+      }
+      break;
     }
     case LUA_VLNGSTR: {
-      setivalue(s2v(ra), tsvalue(rb)->u.lnglen);
-      return;
+      tm = luaT_gettmbyobj(L, rb, TM_LEN);
+      if (notm(tm)) {
+        setivalue(s2v(ra), tsvalue(rb)->u.lnglen);
+        return;
+      }
+      break;
     }
     default: {  /* try metamethod */
       tm = luaT_gettmbyobj(L, rb, TM_LEN);
